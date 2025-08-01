@@ -1,0 +1,29 @@
+<%- include('partials/header.ejs'); -%>
+<link rel="stylesheet" href="/styles/store.css" />
+
+<h1 style="text-align: center; margin-top: 30px;">🛒 Your Cart</h1>
+
+<div class="products-container">
+  <% if (items.length === 0) { %>
+    <p class="no-products">Your cart is empty.</p>
+  <% } else { %>
+    <% items.forEach(item => { %>
+      <div class="product-card">
+        <img src="<%= item.image_url %>" alt="<%= item.name %>" class="product-img" />
+        <h2><%= item.name %></h2>
+        <p class="price">₹<%= item.price %> x <%= item.quantity %></p>
+        <p><strong>Total: ₹<%= item.price * item.quantity %></strong></p>
+      </div>
+    <% }) %>
+  <% } %>
+</div>
+
+<% if (items.length > 0) { %>
+  <div style="text-align: center; margin-top: 20px;">
+    <form action="/checkout" method="GET">
+      <button type="submit" class="add-cart" style="font-size: 1rem;">💳 Proceed to Payment</button>
+    </form>
+  </div>
+<% } %>
+
+<%- include('partials/footer.ejs'); -%>

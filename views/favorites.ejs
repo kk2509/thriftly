@@ -1,0 +1,21 @@
+<%- include('partials/header.ejs'); -%>
+<link rel="stylesheet" href="/styles/store.css" />
+
+<h2 style="text-align:center;">Your Favorites ❤️</h2>
+<div class="products-container">
+  <% if (products.length === 0) { %>
+    <p class="no-products">You haven't favorited any products yet.</p>
+  <% } else { %>
+    <% products.forEach(product => { %>
+      <div class="product-card">
+        <img src="<%= product.image_url %>" alt="<%= product.name %>" class="product-img" />
+        <h2><%= product.name %></h2>
+        <p class="price">₹<%= product.price %></p>
+        <p class="desc"><%= product.description %></p>
+        <!-- You can add cart form here too -->
+      </div>
+    <% }) %>
+  <% } %>
+</div>
+
+<%- include('partials/footer.ejs'); -%>

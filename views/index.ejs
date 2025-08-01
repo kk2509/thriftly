@@ -1,0 +1,50 @@
+<%- include('partials/header.ejs'); -%>
+
+<link rel="stylesheet" href="/styles/store.css" />
+
+<div class="store-header">
+  <!-- <h1>Thriftly</h1> -->
+<div class="marquee-bar">
+  <div class="marquee-track">
+    <span>
+      ✨ Best Pieces • 💎 Unique Finds • 🧵 Handpicked Styles • 🛍️ Limited Stock • 🌟 Trending Now • 🧥 Timeless Fashion • 👗 One-of-a-Kind
+    </span>
+  </div>
+</div>
+
+  <form class="search-bar" action="/search" method="GET">
+    <input type="text" name="q" placeholder="Search products..." required>
+    <button type="submit">Search</button>
+  </form>
+</div>
+
+<div class="products-container">
+  <% if (products.length === 0) { %>
+    <p class="no-products">No products found.</p>
+  <% } else { %>
+    <% products.forEach(product => { %>
+      <div class="product-card">
+        <img src="<%= product.image_url %>" alt="<%= product.name %>" class="product-img" />
+        <h2><%= product.name %></h2>
+        <p class="price">₹<%= product.price %></p>
+        <p class="desc"><%= product.description %></p>
+
+        <form action="/cart/add" method="POST">
+  <input type="hidden" name="productId" value="<%= product.id %>" />
+  <input type="number" name="quantity" value="1" min="1" style="width: 50px;" />
+  <button class="cart-btn" type="submit">🛒 Add to Cart</button>
+</form>
+
+
+        <form action="/favorites/toggle" method="POST">
+          <input type="hidden" name="productId" value="<%= product.id %>" />
+          <button class="fav-btn" type="submit">
+            <% if (product.is_favorite) { %>❤️<% } else { %>🤍<% } %> Favorite
+          </button>
+        </form>
+      </div>
+    <% }) %>
+  <% } %>
+</div>
+
+<%- include('partials/footer.ejs'); -%>

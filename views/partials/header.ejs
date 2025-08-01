@@ -1,0 +1,31 @@
+<header class="navbar">
+  <nav class="navbar-container">
+    <div class="logo">
+      <a href="/" class="logo">
+  <img src="/assets/images/logo.png" alt="ThriftStore" class="logo-img" />
+  <span class="logo-text">Thriftly</span>
+   </a>
+    </div>
+
+<ul class="nav-links">
+<li class="dropdown">
+  <a href="#" class="dropbtn">Categories ▾</a>
+  <div class="dropdown-content">
+    <a href="/category/Shirts">Shirts</a>
+    <a href="/category/Dresses">Dresses</a>
+    <a href="/category/Denim">Denim</a>
+    <a href="/category/Accessories">Accessories</a>
+  </div>
+</li>
+
+      <li><a href="/favorites">❤️ Favorites</a></li>
+      <li><a href="/cart">🛒 Cart</a></li>
+      <% if (!user) { %>
+        <li><a href="/auth/google">👤 Login</a></li>
+      <% } else { %>
+        <li><span>Welcome, <%= user.name %></span></li>
+        <li><a href="/logout">Logout</a></li>
+      <% } %>
+    </ul>
+  </nav>
+</header>

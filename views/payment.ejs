@@ -1,0 +1,35 @@
+<%- include('partials/header.ejs'); -%>
+<link rel="stylesheet" href="/styles/store.css" />
+
+<div style="text-align: center; margin-top: 60px;">
+  <h2>Processing Payment...</h2>
+  <div id="razorpay-button-container"></div>
+</div>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+  const options = {
+    key: "<%= key %>",
+    amount: "<%= amount %>",
+    currency: "INR",
+    name: "Thriftly Store",
+    description: "Checkout",
+    order_id: "<%= order_id %>",
+    handler: function (response) {
+      alert("Payment successful! Razorpay Payment ID: " + response.razorpay_payment_id);
+      // Redirect to success page or show success message here
+    },
+    prefill: {
+      name: "<%= user?.name || '' %>",
+      email: "",
+      contact: ""
+    },
+    theme: {
+      color: "#008080"
+    }
+  };
+  const rzp = new Razorpay(options);
+  rzp.open();
+</script>
+
+<%- include('partials/footer.ejs'); -%>

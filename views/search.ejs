@@ -1,0 +1,33 @@
+
+<%- include('partials/header.ejs'); -%>
+<link rel="stylesheet" href="/styles/store.css" />
+
+<h1 style="text-align:center; margin-top: 30px;">Search Results for "<%= keyword %>"</h1>
+
+<div class="products-container">
+  <% if (products.length === 0) { %>
+    <p class="no-products">No products found for your search.</p>
+  <% } else { %>
+    <% products.forEach(product => { %>
+      <div class="product-card">
+        <img src="<%= product.image_url %>" alt="<%= product.name %>" class="product-img" />
+        <h2><%= product.name %></h2>
+        <p class="price">₹<%= product.price %></p>
+        <p class="desc"><%= product.description %></p>
+
+        <form action="/cart" method="POST">
+          <input type="hidden" name="productId" value="<%= product.id %>" />
+          <input type="hidden" name="quantity" value="1" />
+          <button class="cart-btn" type="submit">🛒 Add to Cart</button>
+        </form>
+
+        <form action="/favorites" method="POST">
+          <input type="hidden" name="productId" value="<%= product.id %>" />
+          <button class="fav-btn" type="submit">🤍 Favorite</button>
+        </form>
+      </div>
+    <% }) %>
+  <% } %>
+</div>
+
+<%- include('partials/footer.ejs'); -%>
