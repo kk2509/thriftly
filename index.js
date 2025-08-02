@@ -16,12 +16,12 @@ const port = 3000;
 // PostgreSQL Connection
 // ──────────────────────
 const db = new pg.Client({
-  user: "postgres",
-  host: "localhost",
-  database: "thriftstore",
-  password: "postgres",
-  port: 5432,
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false
+  }
 });
+
 db.connect();
 
 // ──────────────────────
@@ -303,3 +303,4 @@ app.get("/checkout", async (req, res) => {
 app.listen(port, () => {
   console.log(`🛍️ Thrift Store server running at http://localhost:${port}`);
 });
+
